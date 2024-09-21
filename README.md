@@ -21,7 +21,7 @@ EpiOracle is a cross-facility syndrome-based early warning system for unknown/li
   - commons-codec-1.15
   - mysql-connector-java-8.0.25
 
-The packages above can be installed by configuring `maven` in the project or downloaded from [link](https://mvnrepository.com) and further installed in the project.
+The packages above can be installed by configuring `maven` in the project or downloaded from [here](https://mvnrepository.com) and further installed in the project.
 
 ## Build & Usage
 
@@ -61,5 +61,4 @@ Then the prototype is ready to be tested. The usage of each `.java` file is deti
 - `./EpiOracle/src/main/java/Main`: configure system parameters and all functions of the prototype can be tested
 - `./EpiOracle/src/main/java/utils/BlomFilter`: count similar symptom lists
 - `./EpiOracle/src/main/java/utils/T_Com`: compute the explicit threshold $T$
-
 

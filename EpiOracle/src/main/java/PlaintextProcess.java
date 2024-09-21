@@ -76,7 +76,7 @@ public class PlaintextProcess {
 //                System.out.println(freq[i]);
             }
             long endTime = System.currentTimeMillis();
-            System.out.println((endTime - startTime)/2000);
+            System.out.println("AverageTime:" + (endTime - startTime)/2000);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

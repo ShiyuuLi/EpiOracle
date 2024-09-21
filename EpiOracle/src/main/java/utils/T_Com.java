@@ -54,19 +54,19 @@ public class T_Com {
         return T;
     }
 
-//    public static void main (String[] args){
-//        int L = (int) Math.pow(2, 14);
-//        int[] s = {(int) Math.pow(2, 10), (int) Math.pow(2, 11), (int) Math.pow(2, 12)};
-//        int[] iota = {1000, 2000, 3000, 4000};
-//        int[] t = {500, 1000, 1500, 2000};
-//        double[][][] T = new double[s.length][iota.length][t.length];
-//        for (int i=0;i<s.length;i++){
-//            for (int j=0;j<iota.length;j++){
-//                for (int k=0;k<t.length;k++){
-//                    T[i][j][k] = Compute_T(s[i], iota[j], L, t[k]);
-//                }
-//            }
-//        }
-//        System.out.println(T);
-//    }
+    public static void main (String[] args){
+        int L = (int) Math.pow(2, 14);
+        int[] s = {(int) Math.pow(2, 10), (int) Math.pow(2, 11), (int) Math.pow(2, 12)};
+        int[] iota = {1000, 2000, 3000, 4000};
+        int[] t = {500, 1000, 1500, 2000};
+        BigDecimal[][][] T = new BigDecimal[s.length][iota.length][t.length];
+        for (int i=0;i<s.length;i++){
+            for (int j=0;j<iota.length;j++){
+                for (int k=0;k<t.length;k++){
+                    T[i][j][k] = Compute_T(s[i], iota[j], L, t[k]);
+                }
+            }
+        }
+        System.out.println(T);
+    }
 }
