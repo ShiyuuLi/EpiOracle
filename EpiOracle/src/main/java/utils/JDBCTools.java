@@ -8,7 +8,7 @@ public class JDBCTools {
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost:3306/mysql?useSSL=no";
     static final String USER = "root";
-    static final String PASS = "579Lsy0106.";
+    static final String PASS = "";
 
     private static ComboPooledDataSource dataSource;
 
