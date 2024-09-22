@@ -171,10 +171,10 @@ public class HelParGen {
 //        byte[][] tau = new byte[2][32];
         int l = 12;
         int i = 0;
-        Main.tau = new byte[Main.Sym_Num+Main.Noise_Num][32];
+        Main.tau = new byte[Main.Total_Num][32];
         Main.Diff_tau = new ArrayList<>();
-        Main.ind = new HashSet[Main.Sym_Num+Main.Noise_Num][l];
-        Main.c = new byte[Main.Sym_Num+Main.Noise_Num][l][2][32];
+        Main.ind = new HashSet[Main.Total_Num][l];
+        Main.c = new byte[Main.Total_Num][l][2][32];
         Connection con;
         try {
             con = JDBCTools.getConnection();
@@ -189,7 +189,7 @@ public class HelParGen {
                 i = i + 1;
             }
             i=Main.Sym_Num;
-            while (i < Main.Sym_Num+Main.Noise_Num) {
+            while (i < Main.Total_Num) {
                 String sql = "SELECT Code FROM EpiOracle.Symptoms WHERE SymptomID = '%s'";
                 ResultSet resultSet = statement.executeQuery(String.format(sql, i+1));
                 if (resultSet.next()){

@@ -33,12 +33,13 @@ public class Main {
     public static int s = (int) Math.pow(2, 11);
 
     public static int Sym_Num = 2000;
-    public static int Noise_Num = 2000;
+    public static int Noise_Num = 0;
+    public static int Total_Num = Sym_Num + Noise_Num;
     public static void main(String args[]) throws Exception {
         int l = 1;
-        ind = new HashSet[Sym_Num][l];
-        c = new byte[Sym_Num][l][2][32];
-        tau = new byte[Sym_Num][32];
+        ind = new HashSet[Total_Num][l];
+        c = new byte[Total_Num][l][2][32];
+        tau = new byte[Total_Num][32];
         int i = 0;
 //        int t = 300;
 //        int Inc_Count = 0;
@@ -57,7 +58,7 @@ public class Main {
             }
             Statement statement = con.createStatement();
             double TotalTime =0;
-            while (i < Sym_Num) {
+            while (i < Total_Num) {
                 String sql = "SELECT Code FROM EpiOracle.Symptoms WHERE SymptomID = '%s'";
                 ResultSet resultSet = statement.executeQuery(String.format(sql, i+1));
                 if (resultSet.next()){
