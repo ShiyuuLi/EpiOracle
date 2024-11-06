@@ -26,74 +26,82 @@ No specific hardware is required. The experiments were conducted on a laptop wit
 - Branch: `main`
 
 ### Set up the environment
+
 #### Database configuration
 
-1. Create the required database.
+##### Create the required database and generate the experimental dataset
 
-   Run the following scripts.
+To run the experiments, you can either import the synthesized dataset (`./Dataset/EpiOracle_Symptoms.csv`) or generate a new one based on the symptom information from the World Health Organization (WHO).
 
-   ```mysql
-   mysql -u root -p --local_infile = 1
-   # enter your password
-   ```
+- To use the synthesized dataset, run the script ` setup_database.sh` using the following command
 
-   ```mysql
-   CREATE DATABASE EpiOracle;
-   ```
+  ```mysql
+  bash <full path to setup_database.sh>
+  # Replace <full path to setup_database.sh> with the full path to the script setup_database.sh on your device
+  ```
 
-   ```mysql
-   USE EpiOracle;
-   CREATE TABLE symptoms
-   (
-       SymptomID INT AUTO_INCREMENT PRIMARY KEY,
-       Symptom   TINYTEXT,
-       Code      CHAR(255)
-   );
-   ```
+  If the script has been successfully executed, ` Database and table setup complete!` will be printed. Then, turn to step <a href="#ConfigureDatabaseInCode">Configure Database in Code</a>.
 
-2. Generate the experimental dataset. 
+- To generate a database containing a new dataset based on the symptom information from the World Health Organization (WHO), execute the following steps
 
-   You can either import the synthesized dataset (`./Dataset/EpiOracle_Symptoms.csv`) or generate a new one based on the symptom information from the World Health Organization (WHO).
+  Run the following command
 
-   - To use the synthesized dataset, import `EpiOracle_Symptoms.csv` into the database by running:
+  ```mysql
+  mysql -u root -p --local_infile=1
+  # enter your password
+  ```
 
-     ```mysql
-     USE EpiOracle;
-     LOAD DATA LOCAL INFILE 'storagePath' 
-     #replace storagePath with the path of the file EpiOracle_Symptoms.csv on your device
-     INTO TABLE symptoms
-     FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-     IGNORE 1 ROWS;
-     ```
+  ```mysql
+  set global local_infile=on;
+  ```
 
-     > If there is an error "LOAD DATA LOCAL INFILE file request rejected due to restrictions on access.", do the following
-     >
-     > - Run `SET GLOBAL local-infile=on;`
-     > - Stop MySql server
-     > - Restart it using `mysql -u root -p --local_infile=on`
+  ```mysql
+  CREATE DATABASE EpiOracle;
+  ```
 
-   - To generate a new dataset,  **execute the next step (3. Configure the database in the code) first** and then run `./EpiOracle/src/main/java/SymptomGen.java`.
+  ```mysql
+  USE EpiOracle;
+  CREATE TABLE symptoms
+  (
+      SymptomID INT AUTO_INCREMENT PRIMARY KEY,
+      Symptom   TINYTEXT,
+      Code      CHAR(255)
+  );
+  ```
 
-   After finish this step, you will get a database named `EpiOracle`, in which the table `symptoms` stores the experimental dataset. In the dataset, the first 2000 rows contain COVID-19 symptoms, and next 2000 rows contain other common symptoms.
+  ```
+  USE EpiOracle;
+  LOAD DATA LOCAL INFILE 'storagePath' 
+  #replace storagePath with the path of the file EpiOracle_Symptoms.csv on your device
+  INTO TABLE symptoms
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  IGNORE 1 ROWS;
+  ```
 
-3. Configure the database in the code.
+  **Execute the next step (Configure database in code) first** and then run `./EpiOracle/src/main/java/SymptomGen.java`.
 
-   Change the following strings in `./EpiOracle/src/main/java/utils/JDBCTools` based on your database setup:
+  After finish this step, you will get a database named `EpiOracle`, in which the table `symptoms` stores the experimental dataset. In the dataset, the first 2000 rows contain COVID-19 symptoms, and next 2000 rows contain other common symptoms.
 
-   - DB_URL: url of the created database. 
+##### <a name="ConfigureDatabaseInCode">Configure database in code.</a>
 
-     Replace `<port>` in  `jdbc:mysql://localhost:<port>/mysql?useSSL=no` with your own configuration. You can find the port using:
+Change the following strings in `./EpiOracle/src/main/java/utils/JDBCTools` based on your database setup:
 
-     ```mysql
-     use EpiOracle;
-     show variables like "port";
-     ```
+- DB_URL: url of the created database. 
 
-   - USER: username of the user accessing the database
+  Replace `<port>` in  `jdbc:mysql://localhost:<port>/mysql?useSSL=no` with your own configuration. You can find the port using:
 
-     > Use "root" for simplicity.
+  ```mysql
+  mysql -u root -p;
+  # enter your password
+  use EpiOracle;
+  show variables like "port";
+  ```
 
-   - PASS: password corresponding to the username
+- USER: username of the user accessing the database
+
+  > Use "root" for simplicity.
+
+- PASS: password corresponding to the username
 
 ### Testing the Environment
 Run `EpiOracle/src/main/java/utils/JDBCTools.java`, if the environment has been successfully set, the symptom lists in the `symptoms` table would be printed.
@@ -132,7 +140,7 @@ The results can be reproduced by running **Experiment 1** with the following con
 
 ### Experiments 
 #### Experiment 1: Accuracy of fuzzy detection without noise
-Run `EpiOracle/src/main/java/Main.java`, where the parameter $Sym\_Num$ set to $400/800/1200/1600/2000$.
+Run `EpiOracle/src/main/java/Main.java`, where the parameter $Sym\_Num$ should be set to $400/800/1200/1600/2000$.
 
 #### Experiment 2: Accuracy of fuzzy detection with noise
 Run `EpiOracle/src/main/java/Main.java`, where the following parameters should be reset:
