@@ -1,4 +1,4 @@
-# CREATE DATABASE EpiOracle;EpiOracle: Privacy-Preserving Cross-Facility Early Warning for Unknown Epidemics
+# EpiOracle: Privacy-Preserving Cross-Facility Early Warning for Unknown Epidemics
 
 ## Description
 
