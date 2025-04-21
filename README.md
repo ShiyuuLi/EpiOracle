@@ -1,8 +1,8 @@
-# EpiOracle: Privacy-Preserving Cross-Facility Early Warning for Unknown Epidemics
+# [EpiOracle: Privacy-Preserving Cross-Facility Early Warning for Unknown Epidemics](https://petsymposium.org/popets/2025/popets-2025-0020.pdf)
 
 ## Description
 
-This repository is the official repository of EpiOracle, a cross-facility syndrome-based early warning system for unknown/limited-known epidemics. The repository includes
+This repository is the repository of EpiOracle, a cross-facility syndrome-based early warning system for unknown/limited-known epidemics. It was originally developed during my master's studies, under the supervision of Prof. Yuan Zhang at UESTC. The repository includes
 
 - `./EpiOracle`: the necessary codes for obtaining the evaluate results presented in tables or diagrams in the paper
 - `./DataSet`: a *synthesized* database that contains the dataset used in the experiments.
@@ -11,18 +11,18 @@ This repository is the official repository of EpiOracle, a cross-facility syndro
 
 ### Hardware Requirements
 
-No specific hardware is required. The experiments were conducted on a laptop with an Intel Core i5 CPU and 16 GB of LPDDR4X RAM.
+No specific hardware is required.
 
 ### Software Requirements
 
 - Packages. All required packages are contained in `./EpiOracle/lib`.
-- Database. We use MySQL 9.0 as the underlying database.  You can download MySQL Community Server [here](https://dev.mysql.com/downloads/mysql/).
+- Database. We use MySQL 9.0 as the underlying database. You can download MySQL Community Server [here](https://dev.mysql.com/downloads/mysql/).
 
 ## Environment 
 
 ### Accessibility
 
-- GitHub Repository: https://github.com/Yuan-Zhang-uestc/EpiOracleCode
+- GitHub Repository: [https://github.com/ShiyuuLi/EpiOracle](https://github.com/ShiyuuLi/EpiOracle)
 - Branch: `main`
 
 ### Set up the environment
@@ -106,67 +106,6 @@ Change the following strings in `./EpiOracle/src/main/java/utils/JDBCTools` base
 ### Testing the Environment
 
 Run `EpiOracle/src/main/java/utils/JDBCTools.java`, if the environment has been successfully set, the symptom lists in the `symptoms` table would be printed.
-
-## Artifact Evaluation
-
-### Main Results and Claims
-
-#### Main Result 1: Accuracy of fuzzy detection
-
-In Section 9.3 of the paper, Figure 7 presents the accuracy of fuzzy detection. The experiments show:
-
-- The number of symptom lists identified as similar using only COVID-19 symptom lists.
-- The number of similar symptom lists when both COVID-19 symptom lists and "noisy" lists (containing other symptoms) are used.
-
-These results can be obtained by running **Experiment 1 & 2**, respectively. However, the experiment results may vary since fuzzy detection is a randomized algorithm.
-
-#### Main Result 2: Accuracy of increment count
-
-In Section 9.3, Figure 8 shows the accuracy of increment count in a Bloom Filter. After inserting a target tag $t$ times and other tags $\iota$ times, we measure the recovered count of the target tag. 
-
-The results can be obtained by running **Experiment 3**. Due to the false positive nature of Bloom Filter, the results should be close to $T$.
-
-#### Main Result 3: Computational delay 
-
-In Section 9.4, Figure 9 presents the computation delay on the healthcare facility side under different configurations. 
-
-The results can be reproduced by running **Experiment 1** with the following configuration
-
-- in `EpiOracle/src/main/java/Main.java`
-
-  - set $L = 2^{12}, s = 2^{11}, l = 1/5/10$
-
-  - Comment out line 20
-
-  - Uncomment line 18 and set $alpha = 16/18/20/22/24/26$
-
-- in `EpiOracle/src/main/java/HelParGen.java`
-
-  - Comment out line 137 and uncomment line 136
-
-### Experiments 
-
-#### Experiment 1: Accuracy of fuzzy detection without noise
-
-Run `EpiOracle/src/main/java/Main.java`, where the parameter $Sym\_Num$ should be set to $400/800/1200/1600/2000$.
-
-#### Experiment 2: Accuracy of fuzzy detection with noise
-
-Run `EpiOracle/src/main/java/Main.java`, where the following parameters should be reset:
-
--  $Sym\_Num = 2000$
--  $SimRatio = 0.2/0.4/0.6/0.8$
--  $Noi\_Num = 0/2000$
-
-#### Experiment 3: Accuracy of increment count 
-
-Run `EpiOracle/src/main/java/utils/BloomFilter.java` with the following parameter configurations:
-
-- $t = 300/600/900/1200$
-- $L = 2^{12}/2^{14}/2^{16}$
-- $s = 2^{11}/2^{12}$
-
-## Limitations
 
 The experimental results of fuzzy detection based on 200 real-world symptom lists are not reproducible, which are presented in Table 3 of the paper.
 
