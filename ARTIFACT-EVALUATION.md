@@ -47,9 +47,9 @@ Run `EpiOracle/src/main/java/Main.java`, where the parameter $Sym\_Num$ should b
 #### Experiment 2: Accuracy of fuzzy detection with noise
 Run `EpiOracle/src/main/java/Main.java`, where the following parameters should be reset:
 
--  $Sym\_Num = 2000$
+-  $Sym\_{Num} = 2000$
 - $SimRatio = 0.2/0.4/0.6/0.8$
-- $Noi\_Num = 0/2000$
+- $Noi\_{Num} = 0/2000$
 
 #### Experiment 3: Accuracy of increment count 
 Run `EpiOracle/src/main/java/utils/BloomFilter.java` with the following parameter configurations:
